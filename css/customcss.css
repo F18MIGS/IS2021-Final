@@ -1,0 +1,160 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 50px; /* Adds space for the fixed header */
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+/* Navigation Styling */
+a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #e76f51; /* Hover effect color */
+}
+
+/* Headings */
+h2, h3, h4, h5 {
+    color: #2a2a2a;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 2em;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+h3, h4 {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Section Styles */
+section {
+    padding: 20px;
+    background-color: #fafafa;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Images */
+img {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+/* Links in "Additional Resources" */
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+tableauPlaceholder {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.back-to-top a {
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #2a9d8f;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.back-to-top a:hover {
+    background-color: #e76f51;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 1em;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .back-to-top a {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+
+    iframe {
+        height: 400px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+

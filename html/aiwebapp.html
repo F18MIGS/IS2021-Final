@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connections - Movie Edition</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .cell {
+            background-color: #444;
+            padding: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .cell.selected {
+            background-color: #888;
+        }
+        .cell.correct {
+            background-color: #4caf50;
+        }
+        .cell.wrong {
+            background-color: #f44336;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196f3;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        a {
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connections - Movie Edition</h1>
+        <div class="grid" id="grid"></div>
+        <button id="submitBtn" disabled>Submit</button>
+        <p id="message"></p>
+        <a href="scratch.html">Cooking Blog</a>
+        <a href="../index.html">Resume</a>
+    </div>
+    <script>
+        // Movie data with categories
+        const movies = [
+            { title: "The Godfather", group: "Crime" },
+            { title: "Pulp Fiction", group: "Crime" },
+            { title: "Goodfellas", group: "Crime" },
+            { title: "Scarface", group: "Crime" },
+            { title: "Inception", group: "Sci-Fi" },
+            { title: "Interstellar", group: "Sci-Fi" },
+            { title: "The Matrix", group: "Sci-Fi" },
+            { title: "Blade Runner", group: "Sci-Fi" },
+            { title: "The Lion King", group: "Animated" },
+            { title: "Toy Story", group: "Animated" },
+            { title: "Frozen", group: "Animated" },
+            { title: "Shrek", group: "Animated" },
+            { title: "Titanic", group: "Romance" },
+            { title: "The Notebook", group: "Romance" },
+            { title: "La La Land", group: "Romance" },
+            { title: "Pride and Prejudice", group: "Romance" }
+        ];
+
+        // Shuffle movies
+        const shuffledMovies = movies.sort(() => Math.random() - 0.5);
+
+        // Track selected cells
+        const selected = new Set();
+        let correctGroups = 0;
+
+        // Render the grid
+        const grid = document.getElementById("grid");
+        shuffledMovies.forEach((movie, index) => {
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.textContent = movie.title;
+            cell.dataset.index = index;
+            grid.appendChild(cell);
+        });
+
+        // Add click event to cells
+        document.querySelectorAll(".cell").forEach(cell => {
+            cell.addEventListener("click", () => {
+                const index = cell.dataset.index;
+                if (selected.has(index)) {
+                    selected.delete(index);
+                    cell.classList.remove("selected");
+                } else {
+                    selected.add(index);
+                    cell.classList.add("selected");
+                }
+
+                // Enable or disable the submit button based on selection count
+                document.getElementById("submitBtn").disabled = selected.size !== 4;
+            });
+        });
+
+        // Handle submit
+        document.getElementById("submitBtn").addEventListener("click", () => {
+            const selectedMovies = Array.from(selected).map(i => shuffledMovies[i]);
+            const groups = selectedMovies.map(movie => movie.group);
+
+            if (new Set(groups).size === 1) {
+                // Correct group
+                selected.forEach(i => {
+                    const cell = document.querySelector(`.cell[data-index="${i}"]`);
+                    cell.classList.remove("selected");
+                    cell.classList.add("correct");
+                });
+                correctGroups++;
+                document.getElementById("message").textContent = `Correct! ${4 - correctGroups} groups remaining.`;
+
+                // Remove these cells from being selected again
+                selected.forEach(i => shuffledMovies[i].group = null);
+            } else {
+                // Incorrect group
+                selected.forEach(i => {
+                    const cell = document.querySelector(`.cell[data-index="${i}"]`);
+                    cell.classList.remove("selected");
+                    cell.classList.add("wrong");
+                    setTimeout(() => cell.classList.remove("wrong"), 1000);
+                });
+                document.getElementById("message").textContent = "Wrong group, try again!";
+            }
+
+            // Clear selection
+            selected.clear();
+            document.getElementById("submitBtn").disabled = true;
+
+            // Check for win condition
+            if (correctGroups === 4) {
+                document.getElementById("message").textContent = "You win! All groups completed.";
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
